@@ -1,70 +1,61 @@
 html,
 body {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
-
-.main-header {
-    background-color: rgba(0, 0, 0, .3);
-    padding-bottom: 10px;
+body {
+  background-color: #f6efee;
 }
-
-.title {
-    text-align: center;
-    margin: 0;
-    font-size: 8em;
-    font-family: "Helvetica";
-    font-weight: normal;
-    color: white;
+.hero-section {
+  background-image: url("https://assets.pokemon.com//assets/cms2/img/misc/virtual-backgrounds/sword-shield/pokemon-in-the-wild.png");
+  background-size: cover;
+  background-position: center;
+  height: 460px;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  padding-right: 20px;
 }
-
-#card-container {
-    display: flex;
-    justify-content: center;
-    margin: 20px;
+.overlay {
+  background: linear-gradient(
+    90deg,
+    rgba(35, 31, 32, 0) 0%,
+    rgba(35, 31, 32, 0.7) 50%,
+    rgba(35, 31, 32, 1) 100%
+  );
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 460px;
+  opacity: 0.75;
 }
-
-.card {
-    width: 300px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin: 5px;
+.hero-content {
+  color: #f6efee;
+  text-align: right;
+  width: 50%;
+  z-index: 0;
 }
-
-.card-content {
-    padding: 20px;
-    font-family: "Verdana";
-    color: #777;
+.hero-content h1 {
+  font: 700 2.5em "interstate", sans-serif;
+  margin: 0;
+  margin-bottom: 0.1em;
 }
-
-.card-content h2 {
-    margin-top: 0;
-    font-size: 20px;
+.hero-content p {
+  font: 400 1.5em "lato", sans-serif;
+  margin: 0;
+  margin-bottom: 1em;
 }
-
-.card img {
-    width: 100%;
-    height: auto;
+.hero-content button {
+  background-color: #f8d210;
+  color: #231f20;
+  font: 700 1.2em "interstate", sans-serif;
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
-
-.footer {
-    display: flex;
-    justify-content: center;
-    background-color: rgba(0, 0, 0, .3);
-    padding: 10px;
-}
-
-button {
-    text-align: center;
-    background-color: #666;
-    border: none;
-    padding-left: 10px;
-    padding-right: 10px;
-    height: 40px;
-    border-radius: 10px;
-    color: white;
-    font-size: 22px;
-    cursor: pointer;
-    margin: 5px;
+.hero-content button:hover {
+  background-color: #296eb4;
 }

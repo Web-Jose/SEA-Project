@@ -1,39 +1,35 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <title>LA TV Shows | Home</title>
-    <meta name="description" content="A Catalog of Shows Set in Los Angeles">
+  <head>
+    <title>Pokemon Team Builder</title>
+    <meta
+      name="description"
+      content="A simple web app to build a Pokemon team."
+    />
     <link rel="stylesheet" href="style.css" />
     <script type="text/javascript" src="scripts.js"></script>
-</head>
+    <link rel="stylesheet" href="https://use.typekit.net/kxr1osu.css" />
+  </head>
 
-<body>
-    <header class="main-header">
-        <h1 class="title">LA TV Shows</h1>
+  <body>
+    <header class="hero-section">
+      <div class="overlay"></div>
+      <div class="hero-content">
+        <h1>Pokemon Team Builder</h1>
+        <p>
+          Build your Pokemon team and see how they stack up against other teams!
+        </p>
+        <button class="call-to-action">Build Your Team</button>
+      </div>
     </header>
-    <div id="card-container">
-        
-    </div>
-    <div class="card" style="display: none;">
-        <div class="card-content">
-            <h2>TV Show Title</h2>
-            <img src="" alt="TV Show Poster">
-            <ul>
-                <li>Bullet Point 1</li>
-                <li>Bullet Point 2</li>
-                <li>Bullet Point 3</li>
-            </ul>
+    <main>
+      <section class="teams-handler">
+        <div class="create-import-team">
+          <button class="create-team">Create Team</button>
+          <button class="import-team">Import Team</button>
         </div>
-    </div>
-    <div class="footer">
-        <button onclick="quoteAlert();">
-            Get A Quote!
-        </button>
-        <button onclick="removeLastCard();">
-            Remove A Card!
-        </button>
-    </div>
-</body>
-
+        <div class="teams-list"></div>
+      </section>
+    </main>
+  </body>
 </html>
