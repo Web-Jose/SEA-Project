@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Pokemon Team Builder</title>
+    <title>Pokémon Team Builder</title>
     <meta
       name="description"
-      content="A simple web app to build a Pokemon team."
+      content="A simple web app to build a Pokémon team."
     />
     <link rel="stylesheet" href="style.css" />
-    <script type="text/javascript" src="scripts.js"></script>
+    <script type="text/javascript" src="scripts.js" defer></script>
     <link rel="stylesheet" href="https://use.typekit.net/kxr1osu.css" />
   </head>
 
@@ -15,21 +15,63 @@
     <header class="hero-section">
       <div class="overlay"></div>
       <div class="hero-content">
-        <h1>Pokemon Team Builder</h1>
+        <h1>Pokémon Team Builder</h1>
         <p>
-          Build your Pokemon team and see how they stack up against other teams!
+          Build your Pokémon team and see how they stack up against other teams!
         </p>
         <button class="call-to-action">Build Your Team</button>
       </div>
     </header>
     <main>
-      <section class="teams-handler">
+      <section class="team-builder">
         <div class="create-import-team">
-          <button class="create-team">Create Team</button>
-          <button class="import-team">Import Team</button>
+          <button class="create-team" onclick="createTeamButton()">
+            Create Team
+          </button>
+          <button class="import-team">Import Teams</button>
         </div>
-        <div class="teams-list"></div>
+        <div class="teams-container"></div>
+        <button class="export-teams">Export Teams</button>
       </section>
+      <form class="team-creation-form">
+        <div class="tcf-part-1">
+          <div class="form-header">
+            <h2>Create Your Team</h2>
+            <button
+              type="button"
+              class="close-form"
+              onclick="closeTeamCreation()"
+            >
+              Close
+            </button>
+          </div>
+          <div class="team-name">
+            <label for="team-name">Enter Team Name:</label>
+            <input type="text" id="team-name" name="team-name" />
+          </div>
+          <button class="next-step" type="button" onclick="createTeam()">
+            Next
+          </button>
+        </div>
+        <div class="tcf-part-2">
+          <div class="form-header">
+            <h2>Select Your Pokémon</h2>
+            <button type="button" class="back">Back</button>
+          </div>
+          <div class="pokemon-search">
+            <label for="pokemon-search">Search for Pokémon:</label>
+            <input type="text" id="pokemon-search" name="pokemon-search" />
+          </div>
+          <div class="current-pokemon-team">
+            <h3>Current Team</h3>
+            <div class="pokemon-team"></div>
+          </div>
+          <button class="finish-team" type="button" onclick="finishTeam()">
+            Create Team
+          </button>
+          <div id="search-results"></div>
+        </div>
+      </form>
     </main>
   </body>
 </html>

@@ -46,7 +46,8 @@ body {
   margin: 0;
   margin-bottom: 1em;
 }
-.hero-content button {
+.hero-content button,
+.team-actions button {
   background-color: #f8d210;
   color: #231f20;
   font: 700 1.2em "interstate", sans-serif;
@@ -54,8 +55,53 @@ body {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease-in-out;
 }
-.hero-content button:hover {
+.hero-content button:hover,
+.team-actions button:hover {
   background-color: #296eb4;
+}
+.team-builder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+.create-import-team {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 2rem;
+}
+.create-import-team button,
+.export-teams {
+  background-color: #231f20;
+  color: #f6efee;
+  font: 700 1.2em "interstate", sans-serif;
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+.create-import-team button:hover,
+.export-teams:hover {
+  background-color: #f8d210;
+  color: #231f20;
+}
+.teams-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: #231f20;
+  padding: 1rem;
+  width: 90%;
+  border-radius: 1.5rem;
+  min-height: 5rem;
+}
+.team-creation-form,
+.tcf-part-1,
+.tcf-part-2 {
+  display: none;
 }
