@@ -68,6 +68,33 @@ function renderSearchResults(results) {
   });
 }
 
+function editTeamName(teamIndex) {
+  currentTeamIndex = teamIndex;
+  document
+    .getElementsByClassName("team-creation-form")[0]
+    .classList.add("Active");
+  document.getElementsByClassName("edit-team-name")[0].classList.add("Active");
+  document.getElementsByClassName("tcf-part-1")[0].classList.remove("Active");
+  document.getElementsByClassName("tcf-part-2")[0].classList.remove("Active");
+}
+
+function saveTeamName() {
+  let teamName = document.getElementById("new-team-name").value;
+  if (teamName) {
+    pokemonTeams[currentTeamIndex].name = teamName;
+    document
+      .getElementsByClassName("team-creation-form")[0]
+      .classList.remove("Active");
+    document
+      .getElementsByClassName("edit-team-name")[0]
+      .classList.remove("Active");
+    document.getElementById("new-team-name").value = "";
+    renderTeams();
+  } else {
+    alert("Please enter a team name.");
+  }
+}
+
 function renderTeams() {
   teamcontainer.innerHTML = "";
   pokemonTeams.forEach((team, teamIndex) => {
@@ -78,6 +105,7 @@ function renderTeams() {
         <div class="team-pokemon"></div>
         <div class="team-actions">
             <button onclick="addPokemonButton(${teamIndex})">Add Pokemon</button>
+            <button onclick="editTeamName(${teamIndex})">Edit Team Name</button>
             <button onclick="removeTeam(${teamIndex})">Delete Team</button>
         </div>
         `;
@@ -159,14 +187,30 @@ searchInput.addEventListener("keyup", (e) => {
 
 // DOM Manipulation Functions
 function createTeamButton() {
-  document.getElementsByClassName("team-creation-form")[0].style.display =
-    "block";
-  document.getElementsByClassName("tcf-part-1")[0].style.display = "block";
+  document.getElementById("team-name").value = "";
+  document
+    .getElementsByClassName("team-creation-form")[0]
+    .classList.add("Active");
+  document.getElementsByClassName("tcf-part-1")[0].classList.add("Active");
+  document.getElementsByClassName("tcf-part-2")[0].classList.remove("Active");
+  document
+    .getElementsByClassName("edit-team-name")[0]
+    .classList.remove("Active");
 }
 
 function closeTeamCreation() {
-  document.getElementsByClassName("team-creation-form")[0].style.display =
-    "none";
+  document
+    .getElementsByClassName("team-creation-form")[0]
+    .classList.remove("Active");
+  document.getElementById("pokemon-search").value = "";
+  searchPokemon("");
+  renderTeams();
+  document.getElementsByClassName("tcf-part-1")[0].classList.remove("Active");
+  document.getElementsByClassName("tcf-part-2")[0].classList.remove("Active");
+  document
+    .getElementsByClassName("edit-team-name")[0]
+    .classList.remove("Active");
+  document.getElementById("new-team-name").value = "";
 }
 
 // Team Management Functions
@@ -191,31 +235,41 @@ function createTeam() {
     };
     pokemonTeams.push(team);
     currentTeamIndex = pokemonTeams.length - 1;
-    document.getElementsByClassName("tcf-part-1")[0].style.display = "none";
+    document.getElementsByClassName("tcf-part-1")[0].classList.remove("Active");
     document.getElementById("team-name").value = "";
     currTeamPKMN(currentTeamIndex);
     document.getElementById("pokemon-search").value = "";
-    document.getElementsByClassName("tcf-part-2")[0].style.display = "block";
+    document.getElementsByClassName("tcf-part-2")[0].classList.add("Active");
   } else {
     alert("Please enter a team name.");
   }
 }
 
 function finishTeam() {
-  document.getElementsByClassName("tcf-part-2")[0].style.display = "none";
-  document.getElementsByClassName("team-creation-form")[0].style.display =
-    "none";
+  document.getElementsByClassName("tcf-part-1")[0].classList.remove("Active");
+  document.getElementsByClassName("tcf-part-2")[0].classList.remove("Active");
+  document
+    .getElementsByClassName("team-creation-form")[0]
+    .classList.remove("Active");
   document.getElementById("pokemon-search").value = "";
   searchPokemon("");
   renderTeams();
+  document.getElementById("new-team-name").value = "";
+  document
+    .getElementsByClassName("edit-team-name")[0]
+    .classList.remove("Active");
 }
 
 function addPokemonButton(teamIndex) {
   currentTeamIndex = teamIndex;
-  document.getElementsByClassName("team-creation-form")[0].style.display =
-    "block";
-  document.getElementsByClassName("tcf-part-1")[0].style.display = "none";
-  document.getElementsByClassName("tcf-part-2")[0].style.display = "block";
+  document
+    .getElementsByClassName("team-creation-form")[0]
+    .classList.add("Active");
+  document.getElementsByClassName("tcf-part-1")[0].classList.remove("Active");
+  document.getElementsByClassName("tcf-part-2")[0].classList.add("Active");
+  document
+    .getElementsByClassName("edit-team-name")[0]
+    .classList.remove("Active");
 }
 
 function removeTeam(teamIndex) {

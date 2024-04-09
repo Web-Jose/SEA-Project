@@ -102,6 +102,10 @@ body {
 }
 .team-creation-form,
 .tcf-part-1,
-.tcf-part-2 {
+.tcf-part-2,
+.edit-team-name {
   display: none;
+}
+.Active {
+  display: block;
 }
