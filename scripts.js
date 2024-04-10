@@ -4,9 +4,13 @@ const teamcontainer = document.getElementsByClassName("teams-container")[0];
 var currentTeamIndex = null;
 const searchInput = document.getElementById("pokemon-search");
 let debounceTimeout;
+let currentPage = 1;
+const resultsPerPage = 6;
+var currentResults = [];
 
 // Utility Functions
 function searchPokemon(searchTerm) {
+  currentPage = 1;
   if (searchTerm === "") {
     document.getElementById("search-results").innerHTML = "";
   } else {
@@ -17,15 +21,21 @@ function searchPokemon(searchTerm) {
         let filteredResults = results.filter((result) =>
           result.name.includes(searchTerm.toLowerCase())
         );
+        currentResults = filteredResults;
         renderSearchResults(filteredResults);
       });
   }
 }
 
 function renderSearchResults(results) {
+  let startIndex = (currentPage - 1) * resultsPerPage;
+  let endIndex = startIndex + resultsPerPage;
+  let paginatedResults = results.slice(startIndex, endIndex);
+
   let searchResults = document.getElementById("search-results");
   searchResults.innerHTML = "";
-  results.forEach((result) => {
+
+  paginatedResults.forEach((result) => {
     let pokemonResult = document.createElement("div");
     pokemonResult.classList.add("pokemon-result");
     fetch(result.url.replace("-species", ""))
@@ -36,10 +46,12 @@ function renderSearchResults(results) {
         let pokemonName = pokemon.name;
         let pokemonTypes = pokemon.types.map((type) => type.type.name);
         pokemonResult.innerHTML = `
-            <img src="${pokemonSprite}" alt="${pokemonName}" />
-            <span>${
-              pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1)
-            }</span>
+            <div class="pokemon-info">
+              <img src="${pokemonSprite}" alt="${pokemonName}" />
+              <span>${
+                pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1)
+              }</span>
+            </div>
             <div class="types">
             ${pokemonTypes
               .map((type) => `<span class="type ${type}">${type}</span>`)
@@ -66,6 +78,39 @@ function renderSearchResults(results) {
     });
     searchResults.appendChild(pokemonResult);
   });
+  renderPaginationControls(results.length);
+}
+
+function renderPaginationControls(totalResults) {
+  let searchResults = document.getElementById("search-results");
+  let totalPages = Math.ceil(totalResults / resultsPerPage);
+
+  let paginationControls = document.createElement("div");
+  paginationControls.classList.add("pagination-controls");
+  // Previous Button
+  if (currentPage > 1) {
+    let prevButton = document.createElement("button");
+    prevButton.type = "button";
+    prevButton.innerText = "Previous";
+    prevButton.onclick = () => {
+      currentPage--;
+      renderSearchResults(currentResults); // Assuming currentResults is available
+    };
+    paginationControls.appendChild(prevButton);
+  }
+
+  // Next Button
+  if (currentPage < totalPages) {
+    let nextButton = document.createElement("button");
+    nextButton.type = "button";
+    nextButton.innerText = "Next";
+    nextButton.onclick = () => {
+      currentPage++;
+      renderSearchResults(currentResults); // Update accordingly
+    };
+    paginationControls.appendChild(nextButton);
+  }
+  searchResults.appendChild(paginationControls);
 }
 
 function editTeamName(teamIndex) {
@@ -149,6 +194,7 @@ function currTeamPKMN(teamIndex) {
   team.pokemon.forEach((pokemon, pokemonIndex) => {
     let pokemonElement = document.createElement("div");
     pokemonElement.classList.add("pokemon");
+    pokemonElement.classList.add("bg-dark");
     fetch(pokemon.url.replace("-species", ""))
       .then((response) => response.json())
       .then((data) => {
