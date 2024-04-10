@@ -23,19 +23,25 @@
         <p>
           Build your Pokémon team and see how they stack up against other teams!
         </p>
-        <button class="call-to-action">Build Your Team</button>
+        <button class="call-to-action" href="#Team-Creation">
+          Build Your Team
+        </button>
       </div>
     </header>
-    <main>
+    <main id="Team-Creation">
       <section class="team-builder">
         <div class="create-import-team">
           <button class="create-team" onclick="createTeamButton()">
             Create Team
           </button>
-          <button class="import-team">Import Teams</button>
+          <button class="import-team" onclick="importTeams()">
+            Import Teams
+          </button>
         </div>
         <div class="teams-container"></div>
-        <button class="export-teams">Export Teams</button>
+        <button class="export-teams" onclick="exportTeams()">
+          Export Teams
+        </button>
       </section>
       <form class="team-creation-form">
         <div class="tcf-part-1">
@@ -85,6 +91,37 @@
           </button>
         </div>
       </form>
+      <input
+        type="file"
+        id="file-input"
+        style="display: none"
+        onchange="handleImport(event)"
+        accept=".json"
+      />
+      <script>
+        function importTeams() {
+          document.getElementById("file-input").click();
+        }
+
+        function handleImport(event) {
+          const fileReader = new FileReader();
+          fileReader.onload = function (event) {
+            try {
+              const teams = JSON.parse(event.target.result);
+              if (Array.isArray(teams)) {
+                pokemonTeams = teams;
+                renderTeams();
+                alert("Teams successfully imported!");
+              } else {
+                throw new Error("Invalid file format");
+              }
+            } catch (e) {
+              alert("Failed to import teams: " + e.message);
+            }
+          };
+          fileReader.readAsText(event.target.files[0]);
+        }
+      </script>
     </main>
   </body>
 </html>

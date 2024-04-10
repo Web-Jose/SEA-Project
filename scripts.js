@@ -87,26 +87,24 @@ function renderPaginationControls(totalResults) {
 
   let paginationControls = document.createElement("div");
   paginationControls.classList.add("pagination-controls");
-  // Previous Button
   if (currentPage > 1) {
     let prevButton = document.createElement("button");
     prevButton.type = "button";
     prevButton.innerText = "Previous";
     prevButton.onclick = () => {
       currentPage--;
-      renderSearchResults(currentResults); // Assuming currentResults is available
+      renderSearchResults(currentResults);
     };
     paginationControls.appendChild(prevButton);
   }
 
-  // Next Button
   if (currentPage < totalPages) {
     let nextButton = document.createElement("button");
     nextButton.type = "button";
     nextButton.innerText = "Next";
     nextButton.onclick = () => {
       currentPage++;
-      renderSearchResults(currentResults); // Update accordingly
+      renderSearchResults(currentResults);
     };
     paginationControls.appendChild(nextButton);
   }
@@ -321,4 +319,16 @@ function addPokemonButton(teamIndex) {
 function removeTeam(teamIndex) {
   pokemonTeams.splice(teamIndex, 1);
   renderTeams();
+}
+
+function exportTeams() {
+  const dataStr =
+    "data:text/json;charset=utf-8," +
+    encodeURIComponent(JSON.stringify(pokemonTeams));
+  const downloadAnchorNode = document.createElement("a");
+  downloadAnchorNode.setAttribute("href", dataStr);
+  downloadAnchorNode.setAttribute("download", "pokemon_teams.json");
+  document.body.appendChild(downloadAnchorNode);
+  downloadAnchorNode.click();
+  downloadAnchorNode.remove();
 }
